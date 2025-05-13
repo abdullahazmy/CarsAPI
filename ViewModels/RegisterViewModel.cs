@@ -28,7 +28,7 @@ namespace EdufyAPI.ViewModels
         public string PhoneNumber { get; set; }
 
 
-        public IFormFile? ProfilePicture { get; set; }
+        public IFormFile? ProfilePicture { get; set; } = null;
 
     }
 }

@@ -75,13 +75,17 @@ namespace CarsAPI.Controllers
         [HttpGet("specials")]
         public async Task<IActionResult> GetSpecialCars()
         {
-            var specialCars = await _carService.GetSpecialCarsAsync();
-            if (specialCars == null || !specialCars.Any())
+            try
             {
-                return NotFound("No special cars found");
+                var result = await _carService.GetSpecialCarsAsync();
+                return Ok(result);
             }
-            return Ok(specialCars);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCar(string id, [FromBody] UpdateCarDTO carDTO)

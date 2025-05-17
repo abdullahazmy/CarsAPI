@@ -24,7 +24,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "AskAMuslim API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cars API", Version = "v1" });
 
     // Add JWT support
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -117,11 +117,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<IFavouriteService, FavouriteService>();
-// This ensures that:
-//A new instance of UnitOfWork(and consequently DbContext) is created per request.
-//Once the request is complete, the instance is disposed of properly. This is important to prevent memory leaks.
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles)); // Register AutoMapper
 builder.Services.AddLogging(); // This ensures logging is available
@@ -142,25 +137,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-/*
-  // 🔹 Configure CORS
-var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.WithOrigins(allowedOrigins)
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-});
-    * Don't forget to edit the appsettings.json file to include the AllowedOrigins key
- */
 #endregion
 
-//builder.Services.AddScoped<FileUploadHelper>();
 
 var app = builder.Build();
 
@@ -179,7 +157,7 @@ app.UseSwaggerUI();
 
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ask A Muslim API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cars API V1");
 });
 
 
@@ -188,7 +166,6 @@ app.UseSwaggerUI(c =>
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
-// 🔹 Enable Authentication & Authorization middleware
 app.UseAuthentication(); // Must come before Authorization
 app.UseAuthorization();
 

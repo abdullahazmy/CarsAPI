@@ -60,7 +60,7 @@ namespace CarsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("CarsAPI.Models.FavoriteCar", b =>
@@ -82,7 +82,7 @@ namespace CarsAPI.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("FavoriteCars");
+                    b.ToTable("FavoriteCars", (string)null);
                 });
 
             modelBuilder.Entity("CarsAPI.Models.ImageCar", b =>
@@ -102,7 +102,7 @@ namespace CarsAPI.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("ImageCars");
+                    b.ToTable("ImageCars", (string)null);
                 });
 
             modelBuilder.Entity("EdufyAPI.Models.Roles.AppUser", b =>

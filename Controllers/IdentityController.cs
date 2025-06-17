@@ -201,7 +201,6 @@ namespace EdufyAPI.Controllers.RoleControllers
         /// <response code="401">Unauthorized access</response>
         /// <response code="403">Insufficient privileges</response>
         [HttpGet("Users")]
-        //[Authorize("Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userManager.Users.ToListAsync();
